@@ -6,31 +6,224 @@
     <script type="text/javascript" src="vendor/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
     <title>Calculadora de Ganancias</title>
+    <style type="text/css">
+        .mes {
+            text-align : right;
+        }
+    </style>
+    <script>
+        
+        $(function () {
+           
+           $('.mes').focusout(function (e) {
+               console.log('aaa');
+              var value = $(e.currentTarget).val();
+              if (value.length == 0)
+                $(e.currentTarget).val('0');
+           });
+           
+        });
+        function calcular() {
+            
+            var brutos = [];
+            brutos.push(parseInt($('#mes1').val()));
+            brutos.push(parseInt($('#mes2').val()));
+            brutos.push(parseInt($('#mes3').val()));
+            brutos.push(parseInt($('#mes4').val()));
+            brutos.push(parseInt($('#mes5').val()));
+            brutos.push(parseInt($('#mes6').val()));
+            brutos.push(parseInt($('#mes7').val()));
+            brutos.push(parseInt($('#mes8').val()));
+            brutos.push(parseInt($('#mes9').val()));
+            brutos.push(parseInt($('#mes10').val()));
+            brutos.push(parseInt($('#mes11').val()));
+            brutos.push(parseInt($('#mes12').val()));
+            
+            var brutoAnual = 0;
+            
+            for (var i in brutos) {
+                brutoAnual += brutos[i];
+            }
+            
+            console.log(brutoAnual);
+        }
+        
+    </script>
 </head>
 <body>
-    <div class="container">
-        <h1>Calculadora de Ganancias</h1>
-        <div class="row">
-            <div class="col-md-1">
-                <div class="form-group">
-                    <label for="mes1">Enero</label>
-                    <input type="text" class="form-control mes" id="mes1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3>Calculadora de Ganancias</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group"><label for="mes1">Enero</label><input type="number" name="mes1" id="mes1" class="form-control mes" value="0"></div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group"><label for="mes2">Febrero</label><input type="number" name="mes2" id="mes2" class="form-control mes" value="0"></div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group"><label for="mes3">Marzo</label><input type="number" name="mes3" id="mes3" class="form-control mes" value="0"></div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group"><label for="mes4">Abril</label><input type="number" name="mes4" id="mes4" class="form-control mes" value="0"></div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group"><label for="mes5">Mayo</label><input type="number" name="mes5" id="mes5" class="form-control mes" value="0"></div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group"><label for="mes6">Junio</label><input type="number" name="mes6" id="mes6" class="form-control mes" value="0"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group"><label for="mes1">Julio</label><input type="number" name="mes1" id="mes1" class="form-control mes" value="0"></div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group"><label for="mes2">Agosto</label><input type="number" name="mes2" id="mes2" class="form-control mes" value="0"></div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group"><label for="mes3">Septiembre</label><input type="number" name="mes3" id="mes3" class="form-control mes" value="0"></div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group"><label for="mes4">Octubre</label><input type="number" name="mes4" id="mes4" class="form-control mes" value="0"></div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group"><label for="mes5">Noviembre</label><input type="number" name="mes5" id="mes5" class="form-control mes" value="0"></div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group"><label for="mes6">Diciembre</label><input type="number" name="mes6" id="mes6" class="form-control mes" value="0"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11">
+                    </div>
+                    <div class="col-md-1" style="text-align : right">
+                        <button class="btn btn-success" id="calcular" onclick="calcular()">Calcular</button>
+                    </div>
+                </div>
+                <br/>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>Resultados</h4>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Concepto</th>
+                                    <th>Enero</th>
+                                    <th>Febrero</th>
+                                    <th>Marzo</th>
+                                    <th>Abril</th>
+                                    <th>Mayo</th>
+                                    <th>Junio</th>
+                                    <th>Julio</th>
+                                    <th>Agosto</th>
+                                    <th>Septiembre</th>
+                                    <th>Octubre</th>
+                                    <th>Noviembre</th>
+                                    <th>Diciembre</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="concepto">Sueldo Bruto</td>
+                                    <td class="importe" id="sueldo-bruto1"></td>
+                                    <td class="importe" id="sueldo-bruto2"></td>
+                                    <td class="importe" id="sueldo-bruto3"></td>
+                                    <td class="importe" id="sueldo-bruto4"></td>
+                                    <td class="importe" id="sueldo-bruto5"></td>
+                                    <td class="importe" id="sueldo-bruto6"></td>
+                                    <td class="importe" id="sueldo-bruto7"></td>
+                                    <td class="importe" id="sueldo-bruto8"></td>
+                                    <td class="importe" id="sueldo-bruto9"></td>
+                                    <td class="importe" id="sueldo-bruto10"></td>
+                                    <td class="importe" id="sueldo-bruto11"></td>
+                                    <td class="importe" id="sueldo-bruto12"></td>
+                                </tr>
+                                <tr>
+                                    <td class="concepto">Aporte Jubilatorio</td>
+                                    <td class="importe" id="aporte-jubilatorio1"></td>
+                                    <td class="importe" id="aporte-jubilatorio2"></td>
+                                    <td class="importe" id="aporte-jubilatorio3"></td>
+                                    <td class="importe" id="aporte-jubilatorio4"></td>
+                                    <td class="importe" id="aporte-jubilatorio5"></td>
+                                    <td class="importe" id="aporte-jubilatorio6"></td>
+                                    <td class="importe" id="aporte-jubilatorio7"></td>
+                                    <td class="importe" id="aporte-jubilatorio8"></td>
+                                    <td class="importe" id="aporte-jubilatorio9"></td>
+                                    <td class="importe" id="aporte-jubilatorio10"></td>
+                                    <td class="importe" id="aporte-jubilatorio11"></td>
+                                    <td class="importe" id="aporte-jubilatorio12"></td>
+                                </tr>
+                                <tr>
+                                    <td class="concepto">Obra Social</td>
+                                    <td class="importe" id="obra-social1"></td>
+                                    <td class="importe" id="obra-social2"></td>
+                                    <td class="importe" id="obra-social3"></td>
+                                    <td class="importe" id="obra-social4"></td>
+                                    <td class="importe" id="obra-social5"></td>
+                                    <td class="importe" id="obra-social6"></td>
+                                    <td class="importe" id="obra-social7"></td>
+                                    <td class="importe" id="obra-social8"></td>
+                                    <td class="importe" id="obra-social9"></td>
+                                    <td class="importe" id="obra-social10"></td>
+                                    <td class="importe" id="obra-social11"></td>
+                                    <td class="importe" id="obra-social12"></td>
+                                </tr>
+                                <tr>
+                                    <td class="concepto">Ley 19032</td>
+                                    <td class="importe" id="ley-190321"></td>
+                                    <td class="importe" id="ley-190322"></td>
+                                    <td class="importe" id="ley-190323"></td>
+                                    <td class="importe" id="ley-190324"></td>
+                                    <td class="importe" id="ley-190325"></td>
+                                    <td class="importe" id="ley-190326"></td>
+                                    <td class="importe" id="ley-190327"></td>
+                                    <td class="importe" id="ley-190328"></td>
+                                    <td class="importe" id="ley-190329"></td>
+                                    <td class="importe" id="ley-1903210"></td>
+                                    <td class="importe" id="ley-1903211"></td>
+                                    <td class="importe" id="ley-1903212"></td>
+                                </tr>
+                                <tr>
+                                    <td class="concepto">Imp. a las ganancias</td>
+                                    <td class="importe" id="imp-ganancias1"></td>
+                                    <td class="importe" id="imp-ganancias2"></td>
+                                    <td class="importe" id="imp-ganancias3"></td>
+                                    <td class="importe" id="imp-ganancias4"></td>
+                                    <td class="importe" id="imp-ganancias5"></td>
+                                    <td class="importe" id="imp-ganancias6"></td>
+                                    <td class="importe" id="imp-ganancias7"></td>
+                                    <td class="importe" id="imp-ganancias8"></td>
+                                    <td class="importe" id="imp-ganancias9"></td>
+                                    <td class="importe" id="imp-ganancias10"></td>
+                                    <td class="importe" id="imp-ganancias11"></td>
+                                    <td class="importe" id="imp-ganancias12"></td>
+                                </tr>
+                                <tr>
+                                    <td class="concepto">Sueldo Neto</td>
+                                    <td class="importe" id="sueldo-neto1"></td>
+                                    <td class="importe" id="sueldo-neto2"></td>
+                                    <td class="importe" id="sueldo-neto3"></td>
+                                    <td class="importe" id="sueldo-neto4"></td>
+                                    <td class="importe" id="sueldo-neto5"></td>
+                                    <td class="importe" id="sueldo-neto6"></td>
+                                    <td class="importe" id="sueldo-neto7"></td>
+                                    <td class="importe" id="sueldo-neto8"></td>
+                                    <td class="importe" id="sueldo-neto9"></td>
+                                    <td class="importe" id="sueldo-neto10"></td>
+                                    <td class="importe" id="sueldo-neto11"></td>
+                                    <td class="importe" id="sueldo-neto12"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-1"></div>
-            <div class="col-md-1"></div>
-            <div class="col-md-1"></div>
-            <div class="col-md-1"></div>
-            <div class="col-md-1"></div>
-            <div class="col-md-1"></div>
-            <div class="col-md-1"></div>
-            <div class="col-md-1"></div>
-            <div class="col-md-1"></div>
-            <div class="col-md-1"></div>
-            <div class="col-md-1"></div>
-            <div class="col-md-1"></div>
         </div>
-    </div>
+
 </body>
 </html>
