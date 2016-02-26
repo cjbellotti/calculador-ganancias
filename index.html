@@ -13,17 +13,84 @@
     </style>
     <script>
         
+        var MINIMO_NO_IMPONIBLE = 42318;
+        var CONYUGE = 39778;
+        var FAMILIAR_A_CARGO = 19889;
+        var HIJO = 19889;
+        var ADICIONAL_4TA_CATEGORIA = 203126;
+        
+        var escalas = [
+                {
+                    desde : 120000,
+                    hasta : 999999999999,
+                    fijo : 28500,
+                    porcentaje : 0.35
+                },
+                {
+                    desde : 90000,
+                    hasta : 120000,
+                    fijo : 19200,
+                    porcentaje : 0.31
+                },
+                {
+                    desde : 60000,
+                    hasta : 90000,
+                    fijo : 11100,
+                    porcentaje : 0.27
+                },
+                {
+                    desde : 30000,
+                    hasta : 60000,
+                    fijo : 4200,
+                    porcentaje : 0.23
+                },
+                {
+                    desde : 20000,
+                    hasta : 30000,
+                    fijo : 2300,
+                    porcentaje : 0.19
+                },
+                {
+                    desde : 10000,
+                    hasta : 20000,
+                    fijo : 900,
+                    porcentaje : 0.14
+                },
+                {
+                    desde : 0,
+                    hasta : 10000,
+                    fijo : 0,
+                    porcentaje : 0.09
+                }
+                
+            ];
+        
         $(function () {
            
            $('.mes').focusout(function (e) {
-               console.log('aaa');
               var value = $(e.currentTarget).val();
               if (value.length == 0)
                 $(e.currentTarget).val('0');
            });
            
+           $('.mes').keydown(function (e) {
+               
+               if (e.keyCode == 9) {
+                   console.log('Tab');
+               }
+           })
+           
         });
+        
         function calcular() {
+            
+            var conyuge = $('#conyuge').val() == 'on' ? true : false;
+            var familiaresACargo = parseInt($('#familiar').val());
+            var hijos = parseInt($('#hijos').val());
+            var minimoNoImponibleAnual = MINIMO_NO_IMPONIBLE + ADICIONAL_4TA_CATEGORIA;
+            minimoNoImponibleAnual += (conyuge) ? CONYUGE : 0;
+            minimoNoImponibleAnual += familiaresACargo * FAMILIAR_A_CARGO;
+            minimoNoImponibleAnual += hijos * HIJO;
             
             var brutos = [];
             brutos.push(parseInt($('#mes1').val()));
@@ -41,11 +108,34 @@
             
             var brutoAnual = 0;
             
+            // Aguinaldo Anual
+            var mejorBruto = 0;
             for (var i in brutos) {
                 brutoAnual += brutos[i];
+                if (brutos[i] > mejorBruto)
+                    mejorBruto = brutos[i];
+            }
+            brutoAnual += mejorBruto;
+            
+            var netoAnual = brutoAnual * 0.83;
+            var excedente = netoAnual - minimoNoImponibleAnual;
+            
+            var impuestoAnual = 0;
+            var listo = false;
+            for (var i = 0; i < escalas.length && !listo; i++) {
+                
+                if (excedente >= escalas[i].desde && excedente < escalas[i].hasta) {
+                    console.log(escalas[i].porcentaje);
+                    impuestoAnual = escalas[i].fijo + ((excedente - escalas[i].desde) * escalas[i].porcentaje);
+                    listo = true;
+                }
             }
             
-            console.log(brutoAnual);
+            console.log('Neto Anual: %d',netoAnual);
+            console.log('Minimo No imponible Anual: %d', minimoNoImponibleAnual);
+            console.log('Execedente Anual: %d', excedente);
+            console.log('Retencion Anual: %d', impuestoAnual);
+
         }
         
     </script>
@@ -78,29 +168,75 @@
                 </div>
                 <div class="row">
                     <div class="col-md-2">
-                        <div class="form-group"><label for="mes1">Julio</label><input type="number" name="mes1" id="mes1" class="form-control mes" value="0"></div>
+                        <div class="form-group"><label for="mes7">Julio</label><input type="number" name="mes7" id="mes7" class="form-control mes" value="0"></div>
                     </div>
                     <div class="col-md-2">
-                        <div class="form-group"><label for="mes2">Agosto</label><input type="number" name="mes2" id="mes2" class="form-control mes" value="0"></div>
+                        <div class="form-group"><label for="mes8">Agosto</label><input type="number" name="mes8" id="mes8" class="form-control mes" value="0"></div>
                     </div>
                     <div class="col-md-2">
-                        <div class="form-group"><label for="mes3">Septiembre</label><input type="number" name="mes3" id="mes3" class="form-control mes" value="0"></div>
+                        <div class="form-group"><label for="mes9">Septiembre</label><input type="number" name="mes9" id="mes9" class="form-control mes" value="0"></div>
                     </div>
                     <div class="col-md-2">
-                        <div class="form-group"><label for="mes4">Octubre</label><input type="number" name="mes4" id="mes4" class="form-control mes" value="0"></div>
+                        <div class="form-group"><label for="mes10">Octubre</label><input type="number" name="mes10" id="mes10" class="form-control mes" value="0"></div>
                     </div>
                     <div class="col-md-2">
-                        <div class="form-group"><label for="mes5">Noviembre</label><input type="number" name="mes5" id="mes5" class="form-control mes" value="0"></div>
+                        <div class="form-group"><label for="mes11">Noviembre</label><input type="number" name="mes11" id="mes11" class="form-control mes" value="0"></div>
                     </div>
                     <div class="col-md-2">
-                        <div class="form-group"><label for="mes6">Diciembre</label><input type="number" name="mes6" id="mes6" class="form-control mes" value="0"></div>
+                        <div class="form-group"><label for="mes12">Diciembre</label><input type="number" name="mes12" id="mes12" class="form-control mes" value="0"></div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-11">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label for="conyuge"><input type="checkbox" id="conyuge" name="conyuge">Conyuge</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-inline">
+                                <label for="familiar">Familiar a Cargo</label>
+                                <select name="familiar" id="familiar" class="form-control">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-inline">
+                                <label for="hijos">Hijos</label>
+                                <select name="hijos" id="hijos" class="form-control">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            
+                        </div>
                     </div>
-                    <div class="col-md-1" style="text-align : right">
-                        <button class="btn btn-success" id="calcular" onclick="calcular()">Calcular</button>
+                    <div class="col-md-1">
+                        <div class="form-group" style="margin : 2%">
+                            <button class="btn btn-success" id="calcular" onclick="calcular()">Calcular</button>
+                        </div>
                     </div>
                 </div>
                 <br/>
