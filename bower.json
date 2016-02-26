@@ -1,0 +1,22 @@
+{
+  "name": "calculador-ganancias",
+  "version": "0.1.0",
+  "authors": [
+    "Carlos Bellotti <cjbellotti@hotmail.com>"
+  ],
+  "description": "Calculadora de Ganancias",
+  "main": "index.html",
+  "moduleType": [],
+  "keywords": [
+    "ganancias"
+  ],
+  "license": "BSD",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
